@@ -1,29 +1,155 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+    <TheHeader />
+    <main id="main" class="main">
+      <router-view />
+    </main>
+    <TheFooter />
   </div>
 </template>
-
-<style lang="scss">
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-#nav {
-  padding: 30px;
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-    &.router-link-exact-active {
-      color: #42b983;
-    }
+<script>
+import TheHeader from "@/components/TheHeader.vue";
+import TheFooter from "@/components/TheFooter.vue";
+export default {
+  components: {
+    TheHeader,
+    TheFooter
   }
+};
+</script>
+<style lang="scss">
+@import "@/../assets/scss/_variabless.scss";
+@import "@/../assets/scss/_grid.scss";
+* {
+  box-sizing: border-box;
+}
+body,
+ul,
+li,
+h1,
+h2,
+p {
+  margin: 0px;
+  padding: 0px;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar-track {
+  background-color: $color-1;
+}
+::-webkit-scrollbar {
+  width: 6px;
+  background: #000;
+}
+::-webkit-scrollbar-thumb {
+  background: $color-2;
+  height: 30px;
+}
+body {
+  @include type-1(18);
+  font-size: 18px;
+}
+h2,
+h3 {
+  text-align: center;
+}
+h2 {
+  color: $color-3;
+  margin: 60px 0;
+  text-transform: uppercase;
+  font-size: 40px;
+}
+h3 {
+  color: $color-2;
+  font-size: 24px;
+  margin: 20px 0;
+}
+h4 {
+  color: $color-3;
+  font-size: 24px;
+}
+h5 {
+  color: $color-4;
+  font-size: 20px;
+}
+.section {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding: 20px 0;
+}
+ul {
+  list-style: none;
+  li {
+    display: inline-block;
+  }
+}
+a {
+  padding: 10px;
+  display: block;
+  color: #000;
+  text-decoration: none;
+}
+img {
+  max-width: 100%;
+  border-radius: 4px;
+  display: block;
+}
+input,
+textarea {
+  border-radius: 4px;
+  border: 1px solid white;
+  padding: 15px;
+  box-shadow: 0 4px 8px rgba(30, 60, 90, 0.1);
+  font-size: 1rem;
+  margin-bottom: 15px;
+}
+input:hover,
+input:focus,
+textarea:hover,
+textarea:focus {
+  outline: none;
+  box-shadow: 0 6px 12px rgba(30, 60, 90, 0.2);
+  border-color: $color-1;
+}
+form {
+  width: 60%;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  margin: 0 auto;
+}
+
+.modal_error::before {
+  content: "";
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+}
+.modal_error_container {
+  background: white;
+  width: 300px;
+  padding: 30px;
+  border-radius: 4px;
+  margin: 0 auto;
+  position: fixed;
+  top: 40%;
+  left: 0;
+  right: 0;
+}
+.modal_error_fechar {
+  border-radius: 50%;
+  border: 2px solid #000;
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  font-size: 1rem;
+  box-shadow: 0 3px 4px rgba(0, 0, 0, 0.1), 0 4px 10px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
 }
 </style>

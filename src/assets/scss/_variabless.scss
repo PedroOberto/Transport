@@ -1,0 +1,28 @@
+//Colors
+$color-1: #65ba82;
+$color-2: #49875e;
+$color-3: #313b34;
+$color-4: #87693b;
+$color-5: #88aa8e;
+
+//Font
+@import url("https://fonts.googleapis.com/css?family=Maven+Pro&display=swap");
+$font-1: "Maven Pro", sans-serif;
+
+@function em($pixel, $context: 18) {
+  @return $pixel / $context + em;
+}
+
+@mixin type-1($size) {
+  font-family: $font-1;
+  @if $size == 18 {
+    font-size: em(18);
+    line-height: em(25, 18);
+  } @else if $size == 20 {
+    font-size: em(20);
+    line-height: em(30, 20);
+  } @else if $size == 24 {
+    font-size: em(24);
+    line-height: em(36, 24);
+  }
+}
