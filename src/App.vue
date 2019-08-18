@@ -2,7 +2,9 @@
   <div id="app">
     <TheHeader />
     <main id="main" class="main">
-      <router-view />
+      <transition mode="out-in">
+        <router-view />
+      </transition>
     </main>
     <TheFooter />
   </div>
@@ -49,14 +51,18 @@ body {
   @include type-1(18);
   font-size: 18px;
 }
+h1,
 h2,
 h3 {
   text-align: center;
 }
+h1 {
+  margin: 0 auto;
+}
+h1,
 h2 {
-  color: $color-3;
+  color: $color-1;
   margin: 60px 0;
-  text-transform: uppercase;
   font-size: 40px;
 }
 h3 {
@@ -94,6 +100,14 @@ img {
   border-radius: 4px;
   display: block;
 }
+form {
+  min-width: 300px;
+  margin: 0 auto;
+}
+label {
+  display: block;
+  margin: 5px 0;
+}
 input,
 textarea {
   border-radius: 4px;
@@ -111,15 +125,46 @@ textarea:focus {
   box-shadow: 0 6px 12px rgba(30, 60, 90, 0.2);
   border-color: $color-1;
 }
-form {
-  width: 60%;
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
+
+.button {
+  text-decoration: none;
+  cursor: pointer;
+  padding: 10px 20px;
   margin: 0 auto;
+  display: table;
+  color: #65ba82;
+  border-radius: 4px;
+  border: solid 1px #65ba82;
+  background: #fff;
+  transition: all 0.5s;
+  transform: scale(1);
+  @include type-1(18);
 }
 
+.button:before {
+  content: "";
+  position: absolute;
+  height: 0;
+  width: 0;
+  top: 0;
+  left: 0;
+  background: #65ba82;
+  border-radius: 3px;
+  transition-property: width;
+  transition-duration: 0.5s;
+  border: solid 1px #fff;
+}
+
+.button:hover {
+  color: #fff;
+  border: solid 1px #fff;
+}
+
+.button:hover:before {
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+}
 .modal_error::before {
   content: "";
   position: fixed;
@@ -151,5 +196,20 @@ form {
   font-size: 1rem;
   box-shadow: 0 3px 4px rgba(0, 0, 0, 0.1), 0 4px 10px rgba(0, 0, 0, 0.2);
   cursor: pointer;
+}
+
+.v-enter,
+.v-leave-to {
+  opacity: 0;
+}
+.v-enter {
+  transform: translate3d(-20px, 0, 0);
+}
+.v-leave-to {
+  transform: translate3d(20px, 0, 0);
+}
+.v-enter-active,
+.v-leave-active {
+  transition: all 0.5s;
 }
 </style>

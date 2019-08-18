@@ -2,14 +2,20 @@
   <header>
     <nav>
       <span class="logo">
-        <a href="#">Transport</a>
+        <router-link to="/">Transport</router-link>
       </span>
       <ul>
         <li>
-          <a href="#boxes">Caixas</a>
+          <router-link :to="{name: 'home', hash: '#boxes'}">Caixas</router-link>
         </li>
         <li>
-          <a href="#contact">Contato</a>
+          <router-link to="/">contato</router-link>
+        </li>
+        <li v-if="$store.state.login">
+          <router-link to="/user">{{name}}</router-link>
+        </li>
+        <li v-else>
+          <router-link to="/login" class="button">Login</router-link>
         </li>
       </ul>
     </nav>
@@ -18,13 +24,19 @@
 
 <script>
 export default {
-  name: "TheHeader"
+  name: "TheHeader",
+  computed: {
+    name() {
+      return this.$store.state.user.name.replace(/ .*/, "");
+    }
+  }
 };
 </script>
 
 <style lang="scss">
 header {
   position: fixed;
+  top: 0;
   z-index: 2;
   width: 100%;
 }
@@ -33,12 +45,15 @@ nav {
   align-items: center;
   justify-content: space-between;
   padding: 15px 20px;
-}
-nav ul li a {
-  font-size: 18px;
-  background: #313b34;
-  color: #fff;
-  border-radius: 4px;
+  ul {
+    display: flex;
+    align-items: center;
+    li a {
+      font-size: 18px;
+      color: #000;
+      margin: 0 10px;
+    }
+  }
 }
 .logo a {
   font-size: 40px;

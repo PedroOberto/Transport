@@ -3,10 +3,10 @@
     <div class="grid-16" v-if="box">
       <h2>Sua Encomenda</h2>
       <h4>Codigo: {{box.id}}</h4>
-      <div class="status">
-        <img src="@/assets/box-package.png" class="active" alt="Box Package" />
-        <img src="@/assets/arrows.png" class="active" alt="Setas" />
-        <img src="@/assets/airplane.png" class="active" alt="Avião" />
+      <div :class="box.status" class="status">
+        <img src="@/assets/box-package.png" alt="Box Package" />
+        <img src="@/assets/arrows.png" alt="Setas" />
+        <img src="@/assets/airplane.png" alt="Avião" />
         <img src="@/assets/arrows.png" alt="Setas" />
         <img src="@/assets/home.png" alt="Casa" />
       </div>
@@ -95,7 +95,10 @@ export default {
     },
     scrollToTracking() {
       if (this.box) {
-        window.scrollTo(0, document.querySelector(".tracking").offsetTop);
+        window.scrollTo({
+          top: document.querySelector(".tracking").offsetTop,
+          behavior: "smooth"
+        });
       }
     },
     closeModal({ target, currentTarget }) {
@@ -129,9 +132,25 @@ export default {
     img {
       max-width: 60px;
       filter: grayscale(100%);
+      opacity: 0.3;
     }
-    .active {
+  }
+  .airplane {
+    :nth-child(-n + 3) {
       filter: grayscale(0%);
+      opacity: 1;
+    }
+  }
+  .packed {
+    :nth-child(1) {
+      filter: grayscale(0%);
+      opacity: 1;
+    }
+  }
+  .hand-over {
+    :nth-child(-n + 5) {
+      filter: grayscale(0%);
+      opacity: 1;
     }
   }
   .address {

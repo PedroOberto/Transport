@@ -1,6 +1,7 @@
 <template>
   <div class="search">
     <img class="airplane" src="@/assets/airplane.svg" alt="Avião" />
+    <h1>Soluções para envio de suas encomendas do exterior</h1>
     <form>
       <input
         type="text"
@@ -48,7 +49,19 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+h1 {
+  color: white;
+  position: absolute;
+  top: 30%;
+  line-height: 35px;
+  left: 0;
+  right: 0;
+  padding: 10px;
+  @media screen and (min-width: 768px) {
+    top: 35%;
+  }
+}
 .search {
   z-index: 0;
   position: relative;
@@ -101,6 +114,13 @@ export default {
   }
 }
 
+form {
+  width: 60%;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 60%;
+}
 #code {
   width: 100%;
   padding: 20px;
