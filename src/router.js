@@ -3,6 +3,9 @@ import Router from "vue-router";
 import Home from "./views/Home.vue";
 import Login from "./views/Login.vue";
 import User from "./views/user/User.vue";
+import UserAddBox from "@/views/user/UserAddBox.vue";
+import UserInfo from "@/views/user/UserInfo.vue";
+import UserListBox from "@/views/user/UserListBox.vue";
 
 Vue.use(Router);
 
@@ -23,7 +26,24 @@ export default new Router({
     {
       path: "/user",
       name: "user",
-      component: User
+      component: User,
+      children: [
+        {
+          path: "add-box",
+          name: "add-box",
+          component: UserAddBox
+        },
+        {
+          path: "user-info",
+          name: "user-info",
+          component: UserInfo
+        },
+        {
+          path: "user-box",
+          name: "user-box",
+          component: UserListBox
+        }
+      ]
     }
   ],
   scrollBehavior() {

@@ -1,5 +1,5 @@
 <template>
-  <section class="container section create-login">
+  <section class="container">
     <h2>Meus Dados</h2>
     <form>
       <div class="grid-8">
@@ -33,16 +33,17 @@
         <label for="password">Senha</label>
         <input type="password" id="password" name="password" v-model="password" />
       </div>
-      <button class="button" @click.prevent="createUser">Criar</button>
+      <button class="button" @click.prevent="updateUser">Atualizar</button>
     </form>
   </section>
 </template>
 
 <script>
+import { api } from "@/services.js";
 import { getCep } from "@/services.js";
 import { mapFields } from "@/helpers.js";
 export default {
-  name: "LoginCreate",
+  name: "UserInfo",
   computed: {
     ...mapFields({
       fields: [
@@ -62,15 +63,6 @@ export default {
     })
   },
   methods: {
-    async createUser() {
-      try {
-        await this.$store.dispatch("createUser", this.$store.state.user);
-        await this.$store.dispatch("getUser", this.$store.state.user.email);
-        this.$router.push({ name: "user-box" });
-      } catch (error) {
-        console.log(error);
-      }
-    },
     getFillCep() {
       const cep = this.zipcode.replace(/\D/g, "");
       if (cep.length === 8) {
@@ -82,20 +74,15 @@ export default {
         });
       }
     },
-    scrollToCrateLogin() {
-      setTimeout(function() {
-        window.scrollTo({
-          top: document.querySelector(".create-login").offsetTop,
-          behavior: "smooth"
-        });
-      }, 100);
+    updateUser() {
+      api.put(`/user/`, this.$store.state.user).then(() => {
+        this.$store.dispatch("getUser");
+        this.$router.push({ name: "user-box" });
+      });
     }
-  },
-  created() {
-    this.scrollToCrateLogin();
   }
 };
 </script>
 
-<style scoped lang="scss">
+<style>
 </style>

@@ -2,49 +2,17 @@
   <div class="search">
     <img class="airplane" src="@/assets/airplane.svg" alt="Avião" />
     <h1>Soluções para envio de suas encomendas do exterior</h1>
-    <form>
-      <input
-        type="text"
-        id="code"
-        name="code"
-        v-model="code"
-        placeholder="Digite o codico de rastreio"
-      />
-      <input type="submit" id="search" name="search" value="Buscar" @click.prevent="searchCode" />
-    </form>
+    <SearchForm />
     <div class="city"></div>
-    <div v-if="searchEmpty" class="modal_error">
-      <div class="modal_error_container">
-        <button class="modal_error_fechar" @click="closeModal">X</button>
-        <p>Digite um Codigo</p>
-      </div>
-    </div>
   </div>
 </template>
 
 <script>
+import SearchForm from "@/components/SearchForm.vue";
 export default {
   name: "Search",
-  data() {
-    return {
-      code: "",
-      searchEmpty: false
-    };
-  },
-  methods: {
-    searchCode() {
-      if (this.code) {
-        this.$router.push({ query: { q: this.code } });
-        this.searchEmpty = false;
-      } else {
-        this.searchEmpty = true;
-      }
-    },
-    closeModal({ target, currentTarget }) {
-      if (target === currentTarget) {
-        this.searchEmpty = false;
-      }
-    }
+  components: {
+    SearchForm
   }
 };
 </script>
@@ -68,6 +36,7 @@ h1 {
   height: 100vh;
   background: url("../../src/assets/cloud.png") repeat-x top #65ba82;
   animation: cloud 40s linear infinite;
+  box-shadow: 0 5px 5px #65ba82;
 }
 @keyframes cloud {
   0% {
@@ -120,21 +89,5 @@ form {
   left: 0;
   right: 0;
   top: 60%;
-}
-#code {
-  width: 100%;
-  padding: 20px;
-}
-#search {
-  width: 62px;
-  height: 62px;
-  background: url("../../src/assets/search.svg") no-repeat center center;
-  border: none;
-  text-indent: -150px;
-  cursor: pointer;
-  position: absolute;
-  top: 0px;
-  right: 0px;
-  box-shadow: none;
 }
 </style>

@@ -47,7 +47,17 @@ p {
   background: $color-2;
   height: 30px;
 }
+#app {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+#main {
+  flex: 1;
+}
 body {
+  background: url("../src/assets/background.png") no-repeat top;
+  background-attachment: fixed;
   @include type-1(18);
   font-size: 18px;
 }
@@ -71,11 +81,11 @@ h3 {
   margin: 20px 0;
 }
 h4 {
-  color: $color-3;
+  color: #87693b;
   font-size: 24px;
 }
 h5 {
-  color: $color-4;
+  color: #427a55;
   font-size: 20px;
 }
 .section {
@@ -103,6 +113,12 @@ img {
 form {
   min-width: 300px;
   margin: 0 auto;
+  .button {
+    width: 100%;
+    max-width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
 label {
   display: block;
@@ -116,6 +132,8 @@ textarea {
   box-shadow: 0 4px 8px rgba(30, 60, 90, 0.1);
   font-size: 1rem;
   margin-bottom: 15px;
+  width: 100%;
+  border-color: $color-1;
 }
 input:hover,
 input:focus,
@@ -139,6 +157,7 @@ textarea:focus {
   transition: all 0.5s;
   transform: scale(1);
   @include type-1(18);
+  clear: both;
 }
 
 .button:before {
@@ -165,6 +184,46 @@ textarea:focus {
   width: 100%;
   height: 100%;
 }
+.button-delete:before {
+  content: "";
+  position: absolute;
+  height: 0;
+  width: 0;
+  top: 0;
+  left: 0;
+  background: #a60c0c;
+  border-radius: 3px;
+  transition-property: width;
+  transition-duration: 0.5s;
+  border: solid 1px #fff;
+}
+.button-delete {
+  color: #a60c0c;
+  border: 1px solid #a60c0c;
+  position: absolute;
+  right: 20px;
+  top: 20px;
+}
+.button-view:before {
+  content: "";
+  position: absolute;
+  height: 0;
+  width: 0;
+  top: 0;
+  left: 0;
+  background: #87693B;
+  border-radius: 3px;
+  transition-property: width;
+  transition-duration: 0.5s;
+  border: solid 1px #fff;
+}
+.button-view {
+  color: #87693B;
+  border: 1px solid #87693B;
+  position: absolute;
+  right: 20px;
+  top: 20px;
+}
 .modal_error::before {
   content: "";
   position: fixed;
@@ -173,6 +232,9 @@ textarea:focus {
   width: 100%;
   height: 100vh;
   background: rgba(0, 0, 0, 0.5);
+}
+.modal_error {
+  z-index: 20;
 }
 .modal_error_container {
   background: white;
@@ -184,6 +246,7 @@ textarea:focus {
   top: 40%;
   left: 0;
   right: 0;
+  z-index: 10;
 }
 .modal_error_fechar {
   border-radius: 50%;

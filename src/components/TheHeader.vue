@@ -6,13 +6,13 @@
       </span>
       <ul>
         <li>
-          <router-link :to="{name: 'home', hash: '#boxes'}">Caixas</router-link>
+          <router-link :to="{path: '/', hash: 'boxes'}">Caixas</router-link>
         </li>
         <li>
           <router-link to="/">contato</router-link>
         </li>
         <li v-if="$store.state.login">
-          <router-link to="/user">{{name}}</router-link>
+          <router-link :to="{name: 'user-box'}" class="button">{{name}}</router-link>
         </li>
         <li v-else>
           <router-link to="/login" class="button">Login</router-link>
@@ -50,7 +50,7 @@ nav {
     align-items: center;
     li a {
       font-size: 18px;
-      color: #000;
+      color: #313b34;
       margin: 0 10px;
     }
   }
@@ -58,5 +58,6 @@ nav {
 .logo a {
   font-size: 40px;
   font-weight: bold;
+  color: #313b34;
 }
 </style>

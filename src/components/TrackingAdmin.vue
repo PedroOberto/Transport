@@ -1,8 +1,8 @@
 <template>
-  <section id="tracking" class="container section tracking">
+  <section id="admin-tracking" class="container section tracking">
     <div class="grid-16" v-if="box">
-      <h2>Sua Encomenda</h2>
       <h4>Codigo: {{box.id}}</h4>
+      <button class="button button-delete" @click.prevent="deleteBox(box.id)">Deletar</button>
       <div :class="box.status" class="status">
         <img src="@/assets/box-package.png" alt="Box Package" />
         <img src="@/assets/arrows.png" alt="Setas" />
@@ -56,7 +56,7 @@
 import { api } from "@/services.js";
 
 export default {
-  name: "Tracking",
+  name: "TrackingAdmin",
   data() {
     return {
       box: null,
@@ -75,15 +75,12 @@ export default {
   methods: {
     getBox() {
       if (this.urlCode) {
-        console.log(this.urlCode);
         api
           .get(`/box/${this.urlCode}`)
           .then(response => {
             this.box = response.data;
             if (response.data) {
               this.notBox = false;
-              this.scrollToTracking();
-              console.log(response.data);
             }
           })
           .catch(() => {
@@ -92,17 +89,17 @@ export default {
           });
       }
     },
-    scrollToTracking() {
-      if (this.box) {
-        window.scrollTo({
-          top: document.querySelector(".tracking").offsetTop,
-          behavior: "smooth"
-        });
-      }
-    },
     closeModal({ target, currentTarget }) {
       if (target === currentTarget) {
         this.notBox = false;
+      }
+    },
+    deleteBox(id) {
+      const confirm = window.confirm("Deseja remover?");
+      if (confirm) {
+        api.delete(`/box/${id}`).then(() => {
+          this.box = null;
+        });
       }
     }
   },
@@ -118,64 +115,4 @@ export default {
 </script>
 
 <style lang="scss">
-.tracking {
-  ul li {
-    display: block;
-    color: #777;
-  }
-  .status {
-    // width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    img {
-      max-width: 60px;
-      filter: grayscale(100%);
-      opacity: 0.3;
-    }
-  }
-  .airplane {
-    :nth-child(-n + 3) {
-      filter: grayscale(0%);
-      opacity: 1;
-    }
-  }
-  .packed {
-    :nth-child(1) {
-      filter: grayscale(0%);
-      opacity: 1;
-    }
-  }
-  .hand-over {
-    :nth-child(-n + 5) {
-      filter: grayscale(0%);
-      opacity: 1;
-    }
-  }
-  .address {
-    display: flex;
-    justify-content: space-around;
-  }
-  .items {
-    margin: 20px auto;
-    border-radius: 4px;
-    padding: 10px 0;
-    background: #fbfbfb;
-    box-shadow: 0 4px 8px rgba(30, 60, 90, 0.1);
-  }
-  .specification {
-    color: #777;
-    p {
-      margin: 10px 0;
-    }
-  }
-  .images {
-    // display: flex;
-    overflow-x: auto;
-    max-width: 600px;
-    img {
-      width: 600px;
-    }
-  }
-}
 </style>

@@ -21,6 +21,8 @@ export default {
 <style lang="scss">
 footer {
   background-color: #49875e;
+  position: relative;
+  top: 100px;
   padding: 20px;
   display: flex;
   align-items: center;
