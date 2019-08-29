@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Router from "vue-router";
+import NotFoundComponent from "./views/NotFoundComponent.vue";
 import Home from "./views/Home.vue";
 import Login from "./views/Login.vue";
 import User from "./views/user/User.vue";
@@ -9,10 +10,14 @@ import UserListBox from "@/views/user/UserListBox.vue";
 
 Vue.use(Router);
 
-export default new Router({
+const router = new Router({
   mode: "history",
   base: process.env.BASE_URL,
   routes: [
+    {
+      path: "*",
+      component: NotFoundComponent
+    },
     {
       path: "/",
       name: "home",
@@ -27,6 +32,9 @@ export default new Router({
       path: "/user",
       name: "user",
       component: User,
+      meta: {
+        login: true
+      },
       children: [
         {
           path: "add-box",
@@ -50,3 +58,15 @@ export default new Router({
     return window.scrollTo({ top: 0, behavior: "smooth" });
   }
 });
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.login)) {
+    if (!window.localStorage.token) {
+      next("/login");
+    } else {
+      next();
+    }
+  } else {
+    next();
+  }
+});
+export default router;

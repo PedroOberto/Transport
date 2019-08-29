@@ -1,7 +1,8 @@
 import axios from "axios";
 
+const url = "http://boxtransport.onlinewebshop.net/wp-json";
 const axiosInstance = axios.create({
-  baseURL: "http://boxtransport.onlinewebshop.net/wp-json/api"
+  baseURL: url + "/api"
 });
 axiosInstance.interceptors.request.use(
   function(config) {
@@ -29,15 +30,10 @@ export const api = {
     return axiosInstance.put(endpoint, body);
   },
   login(body) {
-    return axios.post(
-      "http://boxtransport.onlinewebshop.net/wp-json/jwt-auth/v1/token",
-      body
-    );
+    return axios.post(url + "/jwt-auth/v1/token", body);
   },
   validateToken() {
-    return axiosInstance.post(
-      "http://boxtransport.onlinewebshop.net/wp-json/jwt-auth/v1/token/validate"
-    );
+    return axiosInstance.post(url + "/jwt-auth/v1/token/validate");
   }
 };
 

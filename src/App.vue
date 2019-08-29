@@ -25,7 +25,7 @@ export default {
         .then(() => {
           this.$store.dispatch("getUser");
         })
-        .catch(error => {
+        .catch(() => {
           window.localStorage.removeItem("token");
         });
     }
@@ -124,7 +124,6 @@ img {
   display: block;
 }
 form {
-  min-width: 300px;
   margin: 0 auto;
   .button {
     width: 100%;
