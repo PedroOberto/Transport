@@ -18,7 +18,7 @@
           class="button"
           :to="{name: 'user-box'}"
         >Minhas Caixas</router-link>
-        <router-link class="button" :to="{name: 'login'}">Deslogar</router-link>
+        <button class="button" @click.prevent="logout">Deslogar</button>
       </ul>
     </nav>
     <transition>
@@ -33,6 +33,12 @@ export default {
   name: "User",
   computed: {
     ...mapState(["login", "user"])
+  },
+  methods: {
+    logout() {
+      this.$store.dispatch("logoutUser");
+      this.$router.push("/login");
+    }
   }
 };
 </script>

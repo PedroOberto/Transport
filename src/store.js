@@ -14,7 +14,6 @@ export default new Vuex.Store({
       email: "",
       password: "",
       name: "",
-      type: "",
       country: "",
       zipcode: "",
       state: "",
@@ -54,6 +53,24 @@ export default new Vuex.Store({
     createUser(context, payload) {
       context.commit("UPDATE_USER", { id: payload.email });
       api.post("/user", payload);
+    },
+    logoutUser(context) {
+      context.commit("UPDATE_USER", {
+        id: "",
+        role: "",
+        email: "",
+        password: "",
+        name: "",
+        country: "",
+        zipcode: "",
+        state: "",
+        city: "",
+        neighborhood: "",
+        street: "",
+        number: ""
+      });
+      window.localStorage.removeItem("token");
+      context.commit("UPDATE_LOGIN", false);
     },
     loginUser(context, payload) {
       return api

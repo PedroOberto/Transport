@@ -33,7 +33,8 @@
         <label for="password">Senha</label>
         <input type="password" id="password" name="password" v-model="password" />
       </div>
-      <button class="button" @click.prevent="updateUser">Atualizar</button>
+      <button class="button" id="button-update" @click.prevent="updateUser">Atualizar</button>
+      <ErrorNotification :notifications="notifications" />
     </form>
   </section>
 </template>
@@ -44,6 +45,11 @@ import { getCep } from "@/services.js";
 import { mapFields } from "@/helpers.js";
 export default {
   name: "UserInfo",
+  data() {
+    return {
+      notifications: []
+    };
+  },
   computed: {
     ...mapFields({
       fields: [
@@ -75,10 +81,18 @@ export default {
       }
     },
     updateUser() {
-      api.put(`/user/`, this.$store.state.user).then(() => {
-        this.$store.dispatch("getUser");
-        this.$router.push({ name: "user-box" });
-      });
+      this.notifications = [];
+      document.getElementById("button-update").innerHTML = "Atualizando...";
+      api
+        .put(`/user/`, this.$store.state.user)
+        .then(() => {
+          this.$store.dispatch("getUser");
+          this.$router.push({ name: "user-box" });
+        })
+        .catch(error => {
+          this.notifications.push(error.response.data.message);
+          document.getElementById("button-update").innerHTML = "Atualizar";
+        });
     }
   }
 };

@@ -10,12 +10,25 @@
   </div>
 </template>
 <script>
+import { api } from "@/services.js";
 import TheHeader from "@/components/TheHeader.vue";
 import TheFooter from "@/components/TheFooter.vue";
 export default {
   components: {
     TheHeader,
     TheFooter
+  },
+  created() {
+    if (window.localStorage.token) {
+      api
+        .validateToken()
+        .then(() => {
+          this.$store.dispatch("getUser");
+        })
+        .catch(error => {
+          window.localStorage.removeItem("token");
+        });
+    }
   }
 };
 </script>
@@ -211,15 +224,15 @@ textarea:focus {
   width: 0;
   top: 0;
   left: 0;
-  background: #87693B;
+  background: #87693b;
   border-radius: 3px;
   transition-property: width;
   transition-duration: 0.5s;
   border: solid 1px #fff;
 }
 .button-view {
-  color: #87693B;
-  border: 1px solid #87693B;
+  color: #87693b;
+  border: 1px solid #87693b;
   position: absolute;
   right: 20px;
   top: 20px;

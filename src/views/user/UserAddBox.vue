@@ -36,8 +36,8 @@
       <div class="grid-8">
         <h3>Conteudo</h3>
         <label for></label>
-        <label for="namebox">Descrição</label>
-        <input type="text" id="namebox" name="namebox" v-model="box.namebox" />
+        <label for="title">Descrição</label>
+        <input type="text" id="title" name="title" v-model="box.title" />
         <label for="dimension">Dimenssão</label>
         <input type="text" id="dimension" name="dimension" v-model="box.dimension" />
         <label for="weight">Peso</label>
@@ -45,7 +45,8 @@
         <label for="images">Imagens</label>
         <input type="file" id="images" name="images" multiple ref="images" />
       </div>
-      <button class="button" @click.prevent="addBox">Adicionar</button>
+      <button class="button" id="button-add-box" @click.prevent="addBox">Adicionar</button>
+      <ErrorNotification :notifications="notifications" />
     </form>
   </section>
 </template>
@@ -74,28 +75,57 @@ export default {
         recipient_neighborhood: "",
         recipient_street: "",
         recipient_number: "",
-        namebox: "",
+        title: "",
         dimension: "",
         weight: "",
         images: null
-      }
+      },
+      notifications: []
     };
   },
   methods: {
     infoBox() {
-      this.box.user_id = this.$store.state.user.id;
-      this.box.sender_country = this.$store.state.user.country;
-      this.box.sender_zipcode = this.$store.state.user.zipcode;
-      this.box.sender_state = this.$store.state.user.state;
-      this.box.sendert_city = this.$store.state.user.city;
-      this.box.sender_neighborhood = this.$store.state.user.neighborhood;
-      this.box.sender_street = this.$store.state.user.street;
-      this.box.sender_number = this.$store.state.user.number;
+      const form = new FormData();
+      const files = this.$refs.images.files;
+      for (let i = 0; i < files.length; i++) {
+        form.append(files[i].name, files[i]);
+      }
+      form.append("user_id", this.$store.state.user.id);
+      form.append("sender_country", this.$store.state.user.country);
+      form.append("sender_zipcode", this.$store.state.user.zipcode);
+      form.append("sender_state", this.$store.state.user.state);
+      form.append("sender_city", this.$store.state.user.city);
+      form.append("sender_neighborhood", this.$store.state.user.neighborhood);
+      form.append("sender_street", this.$store.state.user.street);
+      form.append("sender_number", this.$store.state.user.number);
+
+      form.append("client", this.box.client);
+
+      form.append("recipient_country", this.box.recipient_country);
+      form.append("recipient_zipcode", this.box.recipient_zipcode);
+      form.append("recipient_state", this.box.recipient_state);
+      form.append("recipient_city", this.box.recipient_city);
+      form.append("recipient_neighborhood", this.box.recipient_neighborhood);
+      form.append("recipient_street", this.box.recipient_street);
+      form.append("recipient_number", this.box.recipient_number);
+
+      form.append("title", this.box.title);
+      form.append("dimension", this.box.dimension);
+      form.append("weight", this.box.weight);
+
+      return form;
     },
     addBox() {
-      this.infoBox();
-      api.post("/box", this.box);
-      this.$router.push({ name: "user-box" });
+      const box = this.infoBox();
+      this.notifications = [];
+      try {
+        api.post("/box", box);
+        this.$router.push({ name: "user-box" });
+        document.getElementById("button-add-box").innerHTML = "Adicionando...";
+      } catch (error) {
+        document.getElementById("button-add-box").innerHTML = "Adicionar";
+        this.notifications.push(error.response.data.message);
+      }
     },
     getFillCep() {
       const cep = this.box.recipient_zipcode.replace(/\D/g, "");
@@ -103,8 +133,8 @@ export default {
         getCep(cep).then(response => {
           this.street = response.data.logradouro;
           this.neighborhood = response.data.bairro;
-          this.city = response.data.uf;
-          this.state = response.data.localidade;
+          this.city = response.data.localidade;
+          this.state = response.data.uf;
         });
       }
     }

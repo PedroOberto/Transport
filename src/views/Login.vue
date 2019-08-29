@@ -8,9 +8,13 @@
         <label for="password">Senha</label>
         <input type="password" name="password" id="password" v-model="login.password" />
         <button id="button-login" class="button" type="submit" @click.prevent="loginUser">Login</button>
+        <ErrorNotification :notifications="notifications" />
       </form>
       <p class="recover-password">
-        <a href="/" target="_blank">Recuperar senha</a>
+        <a
+          href="http://boxtransport.onlinewebshop.net/wp-login.php?action=lostpassword"
+          target="_blank"
+        >Recuperar senha</a>
       </p>
     </section>
     <button
@@ -32,6 +36,7 @@ export default {
         email: "",
         password: ""
       },
+      notifications: [],
       sectionLoginCreate: false
     };
   },
@@ -40,12 +45,18 @@ export default {
   },
   methods: {
     loginUser() {
-      document.getElementById("button-login").innerHTML = "carregando...";
-      document.getElementById("button-login").disabled = "true";
-      this.$store.dispatch("loginUser", this.login).then(response => {
-        this.$store.dispatch("getUser");
-        this.$router.push({ name: "user-info" });
-      });
+      this.notifications = [];
+      document.getElementById("button-login").innerHTML = "Carregando...";
+      this.$store
+        .dispatch("loginUser", this.login)
+        .then(() => {
+          this.$store.dispatch("getUser");
+          this.$router.push({ name: "user-info" });
+        })
+        .catch(error => {
+          this.notifications.push(error.response.data.message);
+          document.getElementById("button-login").innerHTML = "Login";
+        });
     }
   }
 };

@@ -75,7 +75,6 @@ export default {
   methods: {
     getBox() {
       if (this.urlCode) {
-        console.log(this.urlCode);
         api
           .get(`/box/${this.urlCode}`)
           .then(response => {
@@ -83,7 +82,6 @@ export default {
             if (response.data) {
               this.notBox = false;
               this.scrollToTracking();
-              console.log(response.data);
             }
           })
           .catch(() => {

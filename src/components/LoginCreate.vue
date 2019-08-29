@@ -33,7 +33,8 @@
         <label for="password">Senha</label>
         <input type="password" id="password" name="password" v-model="password" />
       </div>
-      <button class="button" @click.prevent="createUser">Criar</button>
+      <button id="button-create-login" class="button" @click.prevent="createUser">Criar</button>
+      <ErrorNotification :notifications="notifications" />
     </form>
   </section>
 </template>
@@ -43,6 +44,11 @@ import { getCep } from "@/services.js";
 import { mapFields } from "@/helpers.js";
 export default {
   name: "LoginCreate",
+  data() {
+    return {
+      notifications: []
+    };
+  },
   computed: {
     ...mapFields({
       fields: [
@@ -63,12 +69,18 @@ export default {
   },
   methods: {
     async createUser() {
+      this.notifications = [];
       try {
+        document.getElementById("button-create-login").innerHTML =
+          "Carregando...";
+        document.getElementById("button-create-login").disabled = "true";
         await this.$store.dispatch("createUser", this.$store.state.user);
-        await this.$store.dispatch("getUser", this.$store.state.user.email);
+        await this.$store.dispatch("loginUser", this.$store.state.user);
+        await this.$store.dispatch("getUser");
         this.$router.push({ name: "user-box" });
       } catch (error) {
-        console.log(error);
+        document.getElementById("button-create-login").innerHTML = "Criar";
+        this.notifications.push(error.response.data.message);
       }
     },
     getFillCep() {
