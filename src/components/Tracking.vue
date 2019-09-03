@@ -33,10 +33,22 @@
       </div>
       <div>
         <h4>Conteudo</h4>
-        <div class="grid-6 images">
-          <img v-for="(image, index) in box.images" :key="index" :src="image.url" :alt="image.alt" />
+        <div class="grid-7 images">
+          <div v-for="(image, index) in box.images" :key="index">
+            <a @click.prevent="modalImage(index)">
+              <img :src="image.src" :alt="image.title" />
+            </a>
+            <div :id="index" class="modal_image">
+              <div class="modal_image_container">
+                <button class="modal_image_fechar" @click="closeModalImage(index)">X</button>
+                <a class="image_modal_before" @click.prevent="modalImageBefore(index)"><</a>
+                <img :src="image.src" :alt="image.title" />
+                <a class="image_modal_after" @click.prevent="modalImageAfter(index)">></a>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="grid-9 specification">
+        <div class="grid-8 specification">
           <h5>{{box.title}}</h5>
           <p>Dimensões: {{box.dimension}}</p>
           <p class="size">Peso: {{box.weight}}</p>
@@ -45,7 +57,7 @@
     </div>
     <div v-if="notBox" class="modal_error">
       <div class="modal_error_container">
-        <button class="modal_error_fechar" @click="closeModal">X</button>
+        <button class="modal_error_fechar" @click="closeModalError">X</button>
         <p>nenhuma caixa encontrada</p>
       </div>
     </div>
@@ -98,10 +110,28 @@ export default {
         });
       }
     },
-    closeModal({ target, currentTarget }) {
+    closeModalError({ target, currentTarget }) {
       if (target === currentTarget) {
         this.notBox = false;
       }
+    },
+    closeModalImage(index) {
+      document.getElementById(index).classList.remove("modal_image_active");
+    },
+    modalImageBefore(index) {
+      if (document.getElementById(index - 1) != null) {
+        document.getElementById(index).classList.remove("modal_image_active");
+        document.getElementById(index - 1).classList.add("modal_image_active");
+      }
+    },
+    modalImageAfter(index) {
+      if (document.getElementById(index + 1) != null) {
+        document.getElementById(index).classList.remove("modal_image_active");
+        document.getElementById(index + 1).classList.add("modal_image_active");
+      }
+    },
+    modalImage(index) {
+      document.getElementById(index).classList.add("modal_image_active");
     }
   },
   watch: {
@@ -117,9 +147,10 @@ export default {
 
 <style lang="scss">
 .tracking {
+  z-index: 1;
   ul li {
     display: block;
-    color: #777;
+    color: #3e3e3e;
   }
   .status {
     // width: 100%;
@@ -162,18 +193,75 @@ export default {
     box-shadow: 0 4px 8px rgba(30, 60, 90, 0.1);
   }
   .specification {
-    color: #777;
+    color: #3e3e3e;
     p {
       margin: 10px 0;
     }
   }
   .images {
-    // display: flex;
     overflow-x: auto;
+    overflow-y: auto;
     max-width: 600px;
+    max-height: 350px;
     img {
       width: 600px;
     }
+    a {
+      cursor: pointer;
+    }
   }
+}
+
+.modal_image::before {
+  content: "";
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+}
+.modal_image {
+  z-index: 20;
+  display: none;
+}
+.modal_image_active {
+  display: block;
+}
+.modal_image_container {
+  background: white;
+  width: 60%;
+  height: 80vh;
+  min-width: 270px;
+  padding: 10px;
+  border-radius: 4px;
+  margin: auto auto;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  img {
+    margin: 0 auto;
+    width: 70%;
+    min-width: 250px;
+    max-width: 100%;
+    max-height: 100%;
+  }
+}
+.modal_image_fechar {
+  border-radius: 50%;
+  border: 2px solid #000;
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  font-size: 1rem;
+  box-shadow: 0 3px 4px rgba(0, 0, 0, 0.1), 0 4px 10px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
 }
 </style>

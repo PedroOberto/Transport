@@ -21,7 +21,7 @@ export default {
 h1 {
   color: white;
   position: absolute;
-  top: 30%;
+  top: 25%;
   line-height: 35px;
   left: 0;
   right: 0;
@@ -50,7 +50,7 @@ h1 {
   width: 100px;
   margin: 0 auto;
   position: absolute;
-  top: 150px;
+  top: 130px;
   left: 0;
   right: 0;
   z-index: 1;

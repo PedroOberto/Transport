@@ -27,7 +27,7 @@
           </div>
           <div>
             <h4>Conteudo</h4>
-            <div class="grid-6 images">
+            <div class="grid-5 images">
               <img
                 v-for="(image, index) in box.images"
                 :key="index"
@@ -35,7 +35,7 @@
                 :alt="image.title"
               />
             </div>
-            <div class="grid-9 specification">
+            <div class="grid-8 specification">
               <h5>{{box.title}}</h5>
               <p>Dimensões: {{box.dimension}}</p>
               <p class="size">Peso: {{box.weight}}</p>
@@ -81,12 +81,17 @@
           <div>
             <h4>Conteudo</h4>
             <div class="grid-6 images">
-              <img
-                v-for="(image, index) in box.images"
-                :key="index"
-                :src="image.src"
-                :alt="image.title"
-              />
+              <div v-for="(image, index) in box.images" :key="index">
+                <a href @click.prevent="modalImage(index)">
+                  <img :src="image.src" :alt="image.title" />
+                </a>
+                <div :id="index" class="modal_image">
+                  <div class="modal_image_container">
+                    <button class="modal_image_fechar" @click="closeModalImage(index)">X</button>
+                    <img :src="image.src" :alt="image.title" />
+                  </div>
+                </div>
+              </div>
             </div>
             <div class="grid-9 specification">
               <h5>{{box.title}}</h5>
@@ -148,6 +153,12 @@ export default {
       });
       await this.$router.push({ query: { q: id } });
     }
+    // closeModalImage(index) {
+    //   document.getElementById(index).classList.remove("modal_image_active");
+    // },
+    // modalImage(index) {
+    //   document.getElementById(index).classList.add("modal_image_active");
+    // }
   }
 };
 </script>
@@ -159,5 +170,7 @@ export default {
   margin: 20px 0;
   border-radius: 4px;
   box-shadow: 0 4px 8px rgba(30, 60, 90, 0.1);
+  border: 1px solid #e9e9e9;
+  background: white;
 }
 </style>

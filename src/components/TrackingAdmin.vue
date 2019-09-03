@@ -1,5 +1,5 @@
 <template>
-  <section id="admin-tracking" class="container section tracking">
+  <section id="admin-tracking" class="container section tracking admin-tracking">
     <div class="grid-16" v-if="box">
       <h4>Codigo: {{box.id}}</h4>
       <button class="button button-delete" @click.prevent="deleteBox(box.id)">Deletar</button>

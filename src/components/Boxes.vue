@@ -5,17 +5,23 @@
     <div class="grid-1-3 box">
       <span>Box S</span>
       <img src="@/assets/box.png" alt="Caixas" />
-      <p>C 65 cm | A 42 cm | L 56 cm</p>
+      <p>Comprimento: 65 cm</p>
+      <p>Altura: 42 cm</p>
+      <p>Largura: 56 cm</p>
     </div>
     <div class="grid-1-3 box">
       <span>Box M</span>
       <img src="@/assets/box.png" alt="Caixas" />
-      <p>C 78 cm | A 51 cm | L 56 cm</p>
+      <p>Comprimento: 65 cm</p>
+      <p>Altura: 42 cm</p>
+      <p>Largura: 56 cm</p>
     </div>
     <div class="grid-1-3 box">
       <span>Box L</span>
       <img src="@/assets/box.png" alt="Caixas" />
-      <p>C 78 cm | A 60 cm | L 56 cm</p>
+      <p>Comprimento: 65 cm</p>
+      <p>Altura: 42 cm</p>
+      <p>Largura: 56 cm</p>
     </div>
   </section>
 </template>
