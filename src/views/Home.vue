@@ -12,6 +12,9 @@ import Tracking from "@/components/Tracking.vue";
 import Boxes from "@/components/Boxes.vue";
 export default {
   name: "home",
+  created() {
+    document.title = "Transport";
+  },
   components: {
     Search,
     Tracking,

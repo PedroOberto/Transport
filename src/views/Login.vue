@@ -43,6 +43,9 @@ export default {
   components: {
     LoginCreate
   },
+  created() {
+    document.title = "Login";
+  },
   methods: {
     loginUser() {
       this.notifications = [];
