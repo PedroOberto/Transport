@@ -22,7 +22,6 @@ h1 {
   color: white;
   position: absolute;
   top: 25%;
-  line-height: 35px;
   left: 0;
   right: 0;
   padding: 10px;
@@ -36,7 +35,7 @@ h1 {
   height: 100vh;
   background: url("../../src/assets/cloud.png") repeat-x top #65ba82;
   animation: cloud 40s linear infinite;
-  box-shadow: 0 5px 5px #65ba82;
+  box-shadow: 0 3px 3px #65ba82;
 }
 @keyframes cloud {
   0% {

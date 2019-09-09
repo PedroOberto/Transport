@@ -85,8 +85,9 @@ h1 {
 h1,
 h2 {
   color: $color-1;
+  line-height: 35px;
   margin: 60px 0;
-  font-size: 40px;
+  font-size: 35px;
 }
 h3 {
   color: $color-2;
@@ -94,8 +95,9 @@ h3 {
   margin: 20px 0;
 }
 h4 {
-  color: #87693b;
+  color: #6d4826;
   font-size: 24px;
+  margin: 20px auto;
 }
 h5 {
   color: #427a55;
@@ -159,9 +161,11 @@ textarea:focus {
 .button {
   text-decoration: none;
   cursor: pointer;
-  padding: 10px 20px;
-  margin: 0 auto;
-  display: table;
+  padding: 10px;
+  margin: 10px;
+  min-width: 90px;
+  text-align: center;
+  display: block;
   color: #65ba82;
   border-radius: 4px;
   border: solid 1px #65ba82;
@@ -212,9 +216,9 @@ textarea:focus {
 .button-delete {
   color: #a60c0c;
   border: 1px solid #a60c0c;
-  position: absolute;
-  right: 20px;
-  top: 20px;
+  position: relative;
+  right: 5px;
+  top: 5px;
 }
 .button-view:before {
   content: "";
@@ -223,18 +227,18 @@ textarea:focus {
   width: 0;
   top: 0;
   left: 0;
-  background: #87693b;
+  background: #6d4826;
   border-radius: 3px;
   transition-property: width;
   transition-duration: 0.5s;
   border: solid 1px #fff;
 }
 .button-view {
-  color: #87693b;
-  border: 1px solid #87693b;
+  color: #6d4826;
+  border: 1px solid #6d4826;
   position: absolute;
-  right: 20px;
-  top: 20px;
+  right: 5px;
+  top: 5px;
 }
 .modal_error::before {
   content: "";

@@ -1,8 +1,15 @@
 <template>
-  <section id="tracking" class="container section tracking">
+  <section id="tracking" class="container tracking">
     <div class="grid-16" v-if="box">
-      <h2>Sua Encomenda</h2>
-      <h4>Codigo: {{box.id}}</h4>
+      <h2>Encomenda</h2>
+      <div class="box-id">
+        <h4>Codigo: {{box.id}}</h4>
+        <button
+          v-if="this.$store.state.user.role === 'administrator'"
+          class="button button-delete"
+          @click.prevent="deleteBox(box.id)"
+        >Deletar</button>
+      </div>
       <div :class="box.status" class="status">
         <img src="@/assets/box-package.png" alt="Box Package" />
         <img src="@/assets/arrows.png" alt="Setas" />
@@ -41,9 +48,11 @@
             <div :id="index" class="modal_image">
               <div class="modal_image_container">
                 <button class="modal_image_fechar" @click="closeModalImage(index)">X</button>
-                <a class="image_modal_before" @click.prevent="modalImageBefore(index)"><</a>
                 <img :src="image.src" :alt="image.title" />
-                <a class="image_modal_after" @click.prevent="modalImageAfter(index)">></a>
+                <div class="arrows">
+                  <a class="image_modal_before" @click.prevent="modalImageBefore(index)"><</a>
+                  <a class="image_modal_after" @click.prevent="modalImageAfter(index)">></a>
+                </div>
               </div>
             </div>
           </div>
@@ -85,6 +94,7 @@ export default {
     }
   },
   methods: {
+    //Retorna a caixa de acordo com o id retrnado do computed urlCode()
     getBox() {
       if (this.urlCode) {
         api
@@ -102,13 +112,20 @@ export default {
           });
       }
     },
-    scrollToTracking() {
-      if (this.box) {
-        window.scrollTo({
-          top: document.querySelector(".tracking").offsetTop,
-          behavior: "smooth"
-        });
+    //Deleta a caixa com o id fornecido pelo botão "Deletar"
+    deleteBox(id) {
+      const confirm = window.confirm("Deseja remover?");
+      if (confirm) {
+        this.box = null;
+        api.delete(`/box/${id}`);
+        this.$router.push({ name: "user-box" });
       }
+    },
+    scrollToTracking() {
+      window.scrollTo({
+        top: document.querySelector(".tracking").offsetTop,
+        behavior: "smooth"
+      });
     },
     closeModalError({ target, currentTarget }) {
       if (target === currentTarget) {
@@ -147,10 +164,16 @@ export default {
 
 <style lang="scss">
 .tracking {
+  position: relative;
   z-index: 1;
   ul li {
     display: block;
     color: #3e3e3e;
+  }
+  .box-id {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
   .status {
     // width: 100%;
@@ -231,7 +254,7 @@ export default {
 .modal_image_container {
   background: white;
   width: 60%;
-  height: 80vh;
+  height: 70vh;
   min-width: 270px;
   padding: 10px;
   border-radius: 4px;
@@ -241,15 +264,17 @@ export default {
   bottom: 0;
   left: 0;
   right: 0;
-  z-index: 10;
-  display: flex;
+  z-index: 20;
+  display: block;
   align-items: center;
   img {
     margin: 0 auto;
     width: 70%;
-    min-width: 250px;
     max-width: 100%;
     max-height: 100%;
+  }
+  .arrows {
+    display: flex;
   }
 }
 .modal_image_fechar {

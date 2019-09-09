@@ -5,26 +5,14 @@
         <li>
           <router-link class="button" :to="{name: 'user-info'}">Meus Dados</router-link>
         </li>
-        <li>
-          <router-link
-            v-if="this.user.role === 'administrator'"
-            class="button"
-            :to="{name: 'add-box'}"
-          >Adicionar Box</router-link>
+        <li v-if="this.user.role === 'administrator'">
+          <router-link class="button" :to="{name: 'add-box'}">Adicionar Box</router-link>
         </li>
-        <li>
-          <router-link
-            v-if="this.user.role === 'administrator'"
-            class="button"
-            :to="{name: 'user-box'}"
-          >Caixas</router-link>
+        <li v-if="this.user.role === 'administrator'">
+          <router-link class="button" :to="{name: 'user-box'}">Caixas</router-link>
         </li>
-        <li>
-          <router-link
-            v-if="this.user.role === 'subscriber'"
-            class="button"
-            :to="{name: 'user-box'}"
-          >Minhas Caixas</router-link>
+        <li v-if="this.user.role === 'subscriber'">
+          <router-link class="button" :to="{name: 'user-box'}">Minhas Caixas</router-link>
         </li>
         <li>
           <button class="button" @click.prevent="logout">Deslogar</button>
@@ -60,14 +48,14 @@ export default {
 .menu_user {
   position: relative;
   margin-top: 50px;
-  ul li {
-    display: block;
-  }
-  a {
-    margin: 10px;
-  }
-  .button {
-    margin: 10px;
+  ul {
+    // max-width: 300px;
+    // display: flex;
+    // align-items: center;
+    // justify-content: space-between;
+    li {
+      // display: block;
+    }
   }
 }
 </style>

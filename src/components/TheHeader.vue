@@ -10,16 +10,16 @@
     </div>
     <nav class="menu">
       <ul>
-        <li>
+        <li @click="menuClose()">
           <router-link :to="{path: '/', hash: 'boxes'}">Caixas</router-link>
         </li>
-        <li>
+        <li @click="menuClose()">
           <router-link to="/">Contato</router-link>
         </li>
-        <li v-if="$store.state.login">
+        <li v-if="$store.state.login" @click="menuClose()">
           <router-link :to="{name: 'user-box'}" class="button">{{name}}</router-link>
         </li>
-        <li v-else>
+        <li v-else @click="menuClose()">
           <router-link to="/login" class="button">Login</router-link>
         </li>
       </ul>
@@ -33,14 +33,22 @@ export default {
   computed: {
     name() {
       return this.$store.state.user.name.replace(/ .*/, "");
+    },
+    button() {
+      return document.querySelector(".button_menu");
+    },
+    menu() {
+      return document.querySelector(".menu");
     }
   },
   methods: {
     menuToggle() {
-      const button = document.querySelector(".button_menu");
-      const menu = document.querySelector(".menu");
-      menu.classList.toggle("ativo");
-      button.classList.toggle("rotate");
+      this.menu.classList.toggle("ativo");
+      this.button.classList.toggle("rotate");
+    },
+    menuClose() {
+      this.menu.classList.remove("ativo");
+      this.button.classList.remove("rotate");
     }
   }
 };
@@ -81,6 +89,7 @@ header {
   position: absolute;
   top: 20px;
   left: 20px;
+  z-index: 10;
 }
 .rotate .bar1 {
   -webkit-transform: rotate(-45deg) translate(-9px, 6px);
@@ -100,21 +109,67 @@ header {
   -ms-transform: rotate(45deg) translate(-8px, -8px);
   transform: rotate(45deg) translate(-8px, -8px);
 }
+.menu.ativo:before {
+  content: "";
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100vh;
+  background: #65ba82;
+}
 .menu {
-  opacity: 0;
-  transition: all 0.5s;
+  display: none;
   position: relative;
-  top: 60px;
-  left: 10px;
-  ul li {
-    display: table;
+  // top: 60px;
+  // left: 10px;
+  ul {
+    margin: 0 auto;
+    position: fixed;
+    top: 30%;
+    left: 0;
+    right: 0;
+    text-align: center;
+    li {
+      display: block;
+      font-size: 30px;
+      margin: 10px;
+    }
   }
+
+  animation: FadeOut 0.5s ease-in-out;
 }
 .menu.ativo {
   display: inline;
-  opacity: 1;
+  display: block;
+  animation: FadeIn 0.5s ease-in-out;
 }
 
+@keyframes FadeIn {
+  0% {
+    opacity: 0;
+    height: initial;
+  }
+  100% {
+    opacity: 1;
+    height: initial;
+  }
+}
+@keyframes FadeOut {
+  0% {
+    opacity: 1;
+    height: initial;
+  }
+  99% {
+    opacity: 0;
+    height: initial;
+  }
+  100% {
+    height: 0;
+    opacity: 0;
+    height: 0;
+  }
+}
 @media screen and(min-width: 600px) {
   .button_menu {
     display: none;
@@ -135,13 +190,17 @@ header {
     align-items: center;
     padding: 15px 20px;
     ul {
-      display: flex;
+      // display: flex;
+      position: relative;
       align-items: center;
-      li a {
-        font-size: 18px;
-        display: block;
-        color: #313b34;
-        margin: 0 10px;
+      width: 100%;
+      li {
+        display: inline-flex;
+        a {
+          font-size: 18px;
+          color: #313b34;
+          margin: 0 10px;
+        }
       }
     }
   }

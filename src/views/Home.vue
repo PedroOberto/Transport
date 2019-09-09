@@ -3,6 +3,7 @@
     <Search />
     <Tracking />
     <Boxes />
+    <Contact />
   </div>
 </template>
 
@@ -10,6 +11,7 @@
 import Search from "@/components/Search.vue";
 import Tracking from "@/components/Tracking.vue";
 import Boxes from "@/components/Boxes.vue";
+import Contact from "@/components/Contact.vue";
 export default {
   name: "home",
   created() {
@@ -18,7 +20,8 @@ export default {
   components: {
     Search,
     Tracking,
-    Boxes
+    Boxes,
+    Contact
   }
 };
 </script>

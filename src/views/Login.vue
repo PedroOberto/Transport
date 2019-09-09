@@ -82,6 +82,6 @@ export default {
   }
 }
 .button-create {
-  margin-bottom: 60px;
+  margin: 0 auto;
 }
 </style>

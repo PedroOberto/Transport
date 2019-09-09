@@ -1,12 +1,6 @@
 <template>
   <form>
-    <input
-      type="text"
-      id="code"
-      name="code"
-      v-model="code"
-      placeholder="Digite o codico de rastreio"
-    />
+    <input type="text" id="code" name="code" v-model="code" placeholder="Digite seu códico" />
     <input type="submit" id="search" name="search" value="Buscar" @click.prevent="searchCode" />
 
     <div v-if="searchEmpty" class="modal_error">
