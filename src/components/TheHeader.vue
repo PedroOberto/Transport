@@ -83,6 +83,7 @@ header {
   background-color: #333;
   margin: 6px 0;
   transition: 0.4s;
+  border-radius: 4px;
 }
 .button_menu {
   cursor: pointer;
