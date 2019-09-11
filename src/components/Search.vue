@@ -52,7 +52,7 @@ h1 {
   top: 130px;
   left: 0;
   right: 0;
-  z-index: 1;
+  z-index: 0;
   animation: airplane 1s cubic-bezier(1, 1, 1, 1) infinite alternate;
 }
 @keyframes airplane {
@@ -72,6 +72,7 @@ h1 {
   left: 0;
   right: 0;
   bottom: 0;
+  z-index: -1;
 }
 @keyframes city {
   0% {
@@ -83,7 +84,7 @@ h1 {
 }
 
 form {
-  width: 60%;
+  width: 70%;
   position: absolute;
   left: 0;
   right: 0;

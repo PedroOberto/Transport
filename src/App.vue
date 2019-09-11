@@ -76,11 +76,18 @@ body {
 }
 h1,
 h2,
-h3 {
-  text-align: center;
+h3,
+h4,
+h5 {
+  font-weight: normal;
 }
 h1 {
   margin: 0 auto;
+}
+h1,
+h2,
+h3 {
+  text-align: center;
 }
 h1,
 h2 {
@@ -142,7 +149,7 @@ input,
 textarea {
   border-radius: 4px;
   border: 1px solid white;
-  padding: 15px;
+  padding: 10px;
   box-shadow: 0 4px 8px rgba(30, 60, 90, 0.1);
   font-size: 1rem;
   margin-bottom: 15px;
@@ -161,7 +168,7 @@ textarea:focus {
 .button {
   text-decoration: none;
   cursor: pointer;
-  padding: 10px;
+  padding: 5px 10px;
   margin: 10px;
   min-width: 90px;
   text-align: center;
@@ -265,6 +272,73 @@ textarea:focus {
   z-index: 10;
 }
 .modal_error_fechar {
+  border-radius: 50%;
+  border: 2px solid #000;
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  font-size: 1rem;
+  box-shadow: 0 3px 4px rgba(0, 0, 0, 0.1), 0 4px 10px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+
+.modal_image::before {
+  content: "";
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+}
+.modal_image {
+  z-index: 20;
+  display: none;
+}
+.modal_image_active {
+  display: block;
+}
+.modal_image_container {
+  background: white;
+  width: 80%;
+  max-width: 542px;
+  overflow: none;
+  max-height: 50vh;
+  padding: 10px;
+  border-radius: 4px;
+  margin: auto auto;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 20;
+  display: block;
+  align-items: center;
+  img {
+    max-height: 90%;
+  }
+  .arrows {
+    display: flex;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    width: 100px;
+    img {
+      max-width: 25px;
+    }
+  }
+}
+@media screen and (min-width: 500px) {
+  .modal_image_container {
+    max-height: 80vh;
+  }
+}
+.modal_image_fechar {
   border-radius: 50%;
   border: 2px solid #000;
   width: 40px;

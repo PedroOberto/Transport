@@ -27,13 +27,26 @@
           </div>
           <div>
             <h4>Conteudo</h4>
-            <div class="grid-5 images">
-              <img
-                v-for="(image, index) in box.images"
-                :key="index"
-                :src="image.src"
-                :alt="image.title"
-              />
+            <div class="grid-6 images">
+              <div v-for="(image, index) in box.images" :key="index">
+                <a @click.prevent="modalImage(index)">
+                  <img :src="image.src" :alt="image.title" />
+                </a>
+                <div :id="index" class="modal_image">
+                  <div class="modal_image_container">
+                    <button class="modal_image_fechar" @click="closeModalImage(index)">X</button>
+                    <img :src="image.src" :alt="image.title" />
+                    <div class="arrows">
+                      <a class="image_modal_before" @click.prevent="modalImageBefore(index)">
+                        <img src="../../assets/arrow-left.png" alt="Arrow Left" />
+                      </a>
+                      <a class="image_modal_after" @click.prevent="modalImageAfter(index)">
+                        <img src="../../assets/arrow-right.png" alt="Arrow Right" />
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
             <div class="grid-8 specification">
               <h5>{{box.title}}</h5>
@@ -82,13 +95,21 @@
             <h4>Conteudo</h4>
             <div class="grid-6 images">
               <div v-for="(image, index) in box.images" :key="index">
-                <a href @click.prevent="modalImage(index)">
+                <a @click.prevent="modalImage(index)">
                   <img :src="image.src" :alt="image.title" />
                 </a>
                 <div :id="index" class="modal_image">
                   <div class="modal_image_container">
                     <button class="modal_image_fechar" @click="closeModalImage(index)">X</button>
                     <img :src="image.src" :alt="image.title" />
+                    <div class="arrows">
+                      <a class="image_modal_before" @click.prevent="modalImageBefore(index)">
+                        <img src="../../assets/arrow-left.png" alt="Arrow Left" />
+                      </a>
+                      <a class="image_modal_after" @click.prevent="modalImageAfter(index)">
+                        <img src="../../assets/arrow-right.png" alt="Arrow Right" />
+                      </a>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -158,6 +179,26 @@ export default {
       });
       //Envia pelo router o parametro com o id da caixa
       await this.$router.push({ query: { q: id } });
+    },
+    closeModalImage(index) {
+      document.getElementById(index).classList.remove("modal_image_active");
+      document.body.style.overflow = "auto";
+    },
+    modalImageBefore(index) {
+      if (document.getElementById(index - 1) != null) {
+        document.getElementById(index).classList.remove("modal_image_active");
+        document.getElementById(index - 1).classList.add("modal_image_active");
+      }
+    },
+    modalImageAfter(index) {
+      if (document.getElementById(index + 1) != null) {
+        document.getElementById(index).classList.remove("modal_image_active");
+        document.getElementById(index + 1).classList.add("modal_image_active");
+      }
+    },
+    modalImage(index) {
+      document.getElementById(index).classList.add("modal_image_active");
+      document.body.style.overflow = "hidden";
     }
   }
 };

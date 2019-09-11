@@ -120,8 +120,8 @@ export default {
       this.notifications = [];
       try {
         api.post("/box", box);
-        this.$router.push({ name: "user-box" });
         document.getElementById("button-add-box").innerHTML = "Adicionando...";
+        this.$router.push({ name: "user-box" });
       } catch (error) {
         document.getElementById("button-add-box").innerHTML = "Adicionar";
         this.notifications.push(error.response.data.message);

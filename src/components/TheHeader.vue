@@ -1,5 +1,5 @@
 <template>
-  <header>
+  <header :class="{header_background: scrolled}">
     <span class="logo">
       <router-link to="/">Transport</router-link>
     </span>
@@ -10,11 +10,23 @@
     </div>
     <nav class="menu">
       <ul>
-        <li @click="menuClose()">
-          <router-link :to="{path: '/', hash: 'boxes'}">Caixas</router-link>
+        <li v-if="!$store.state.login" @click="menuClose()">
+          <a
+            href="#"
+            v-scroll-to="{
+              el: '#boxes',
+              offset: -50,
+          }"
+          >Caixas</a>
         </li>
-        <li @click="menuClose()">
-          <router-link to="/">Contato</router-link>
+        <li v-if="!$store.state.login" @click="menuClose()">
+          <a
+            href="#"
+            v-scroll-to="{
+              el: '#contact',
+              offset: -50,
+          }"
+          >Contato</a>
         </li>
         <li v-if="$store.state.login" @click="menuClose()">
           <router-link :to="{name: 'user-box'}" class="button">{{name}}</router-link>
@@ -30,6 +42,17 @@
 <script>
 export default {
   name: "TheHeader",
+  data() {
+    return {
+      scrolled: false
+    };
+  },
+  created() {
+    window.addEventListener("scroll", this.menuBackground);
+  },
+  destroyed() {
+    window.removeEventListener("scroll", this.menuBackground);
+  },
   computed: {
     name() {
       return this.$store.state.user.name.replace(/ .*/, "");
@@ -49,6 +72,9 @@ export default {
     menuClose() {
       this.menu.classList.remove("ativo");
       this.button.classList.remove("rotate");
+    },
+    menuBackground() {
+      this.scrolled = window.pageYOffset > 200;
     }
   }
 };
@@ -60,8 +86,19 @@ header {
   top: 0;
   z-index: 2;
   width: 100%;
+  height: 65px;
+  transition: all 0.5s;
 }
-
+.header_background {
+  background: #ecf2ee;
+  transition: all 0.5s;
+}
+@media screen and (min-width: 600px) {
+  header {
+    height: 95px;
+    background: none;
+  }
+}
 .logo {
   width: 200px;
   display: block;
@@ -88,7 +125,7 @@ header {
 .button_menu {
   cursor: pointer;
   position: absolute;
-  top: 20px;
+  top: 13px;
   left: 20px;
   z-index: 10;
 }

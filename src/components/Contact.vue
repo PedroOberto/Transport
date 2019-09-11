@@ -1,5 +1,5 @@
 <template>
-  <section class="container">
+  <section class="container" id="contact">
     <h2>Contato</h2>
     <form class="contact grid-8">
       <label for="name">Nome</label>

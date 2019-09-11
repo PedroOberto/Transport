@@ -7,6 +7,10 @@ import Loading from "@/components/Loading.vue";
 
 Vue.config.productionTip = false;
 
+var VueScrollTo = require("vue-scrollto");
+
+Vue.use(VueScrollTo);
+
 Vue.component("ErrorNotification", ErrorNotification);
 Vue.component("Loading", Loading);
 

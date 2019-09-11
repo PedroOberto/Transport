@@ -50,8 +50,12 @@
                 <button class="modal_image_fechar" @click="closeModalImage(index)">X</button>
                 <img :src="image.src" :alt="image.title" />
                 <div class="arrows">
-                  <a class="image_modal_before" @click.prevent="modalImageBefore(index)"><</a>
-                  <a class="image_modal_after" @click.prevent="modalImageAfter(index)">></a>
+                  <a class="image_modal_before" @click.prevent="modalImageBefore(index)">
+                    <img src="../assets/arrow-left.png" alt="Arrow Left" />
+                  </a>
+                  <a class="image_modal_after" @click.prevent="modalImageAfter(index)">
+                    <img src="../assets/arrow-right.png" alt="Arrow Right" />
+                  </a>
                 </div>
               </div>
             </div>
@@ -134,6 +138,7 @@ export default {
     },
     closeModalImage(index) {
       document.getElementById(index).classList.remove("modal_image_active");
+      document.body.style.overflow = "auto";
     },
     modalImageBefore(index) {
       if (document.getElementById(index - 1) != null) {
@@ -149,6 +154,7 @@ export default {
     },
     modalImage(index) {
       document.getElementById(index).classList.add("modal_image_active");
+      document.body.style.overflow = "hidden";
     }
   },
   watch: {
@@ -233,60 +239,5 @@ export default {
       cursor: pointer;
     }
   }
-}
-
-.modal_image::before {
-  content: "";
-  position: fixed;
-  top: 0px;
-  left: 0px;
-  width: 100%;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.5);
-}
-.modal_image {
-  z-index: 20;
-  display: none;
-}
-.modal_image_active {
-  display: block;
-}
-.modal_image_container {
-  background: white;
-  width: 60%;
-  height: 70vh;
-  min-width: 270px;
-  padding: 10px;
-  border-radius: 4px;
-  margin: auto auto;
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 20;
-  display: block;
-  align-items: center;
-  img {
-    margin: 0 auto;
-    width: 70%;
-    max-width: 100%;
-    max-height: 100%;
-  }
-  .arrows {
-    display: flex;
-  }
-}
-.modal_image_fechar {
-  border-radius: 50%;
-  border: 2px solid #000;
-  width: 40px;
-  height: 40px;
-  position: absolute;
-  top: -10px;
-  right: -10px;
-  font-size: 1rem;
-  box-shadow: 0 3px 4px rgba(0, 0, 0, 0.1), 0 4px 10px rgba(0, 0, 0, 0.2);
-  cursor: pointer;
 }
 </style>

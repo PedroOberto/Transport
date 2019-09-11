@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const url = "http://boxtransport.onlinewebshop.net/wp-json";
+const url = "http://apitransport.onlinewebshop.net/wp-json";
 const axiosInstance = axios.create({
   baseURL: url + "/api"
 });
