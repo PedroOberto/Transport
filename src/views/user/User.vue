@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
+import { mapState } from "vuex";
 export default {
   name: "User",
   created() {
@@ -48,14 +48,5 @@ export default {
 .menu_user {
   position: relative;
   margin-top: 50px;
-  ul {
-    // max-width: 300px;
-    // display: flex;
-    // align-items: center;
-    // justify-content: space-between;
-    li {
-      // display: block;
-    }
-  }
 }
 </style>
