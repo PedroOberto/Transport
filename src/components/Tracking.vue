@@ -87,6 +87,7 @@ export default {
     //Retorna a caixa de acordo com o id retrnado do computed urlCode()
     getBox() {
       if (this.urlCode) {
+        this.$store.state.loading_tracking = true;
         api
           .get(`/box/${this.urlCode}`)
           .then(response => {
@@ -94,11 +95,13 @@ export default {
             if (response.data) {
               this.notBox = false;
               this.scrollToTracking();
+              this.$store.state.loading_tracking = false;
             }
           })
           .catch(() => {
             this.box = null;
             this.notBox = true;
+            this.$store.state.loading_tracking = false;
           });
       }
     },

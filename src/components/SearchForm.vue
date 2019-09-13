@@ -1,12 +1,19 @@
 <template>
   <form>
-    <input type="text" id="code" name="code" v-model="code" placeholder="Digite seu códico" />
+    <input
+      type="text"
+      id="code"
+      name="code"
+      v-model="code"
+      :class="{active: this.$store.state.loading_tracking}"
+      placeholder="Digite um código"
+    />
     <input type="submit" id="search" name="search" value="Buscar" @click.prevent="searchCode" />
 
     <div v-if="searchEmpty" class="modal_error">
       <div class="modal_error_container">
         <button class="modal_error_fechar" @click="closeModal">X</button>
-        <p>Digite um Codigo</p>
+        <p>Digite um Código</p>
       </div>
     </div>
   </form>
@@ -45,6 +52,18 @@ export default {
 #code {
   width: 100%;
   padding: 20px;
+}
+.active {
+  background: linear-gradient(to right, #fff 0%, #65ba82 100%);
+  animation: rotate 3s infinite linear;
+}
+@keyframes rotate {
+  from {
+    background-position: -1000px;
+  }
+  to {
+    background-position: 0px;
+  }
 }
 #search {
   width: 62px;

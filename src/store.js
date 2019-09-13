@@ -22,7 +22,8 @@ export default new Vuex.Store({
       street: "",
       number: ""
     },
-    user_box: null
+    user_box: null,
+    loading_tracking: false
   },
   mutations: {
     UPDATE_LOGIN(state, payload) {
