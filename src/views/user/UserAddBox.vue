@@ -131,10 +131,10 @@ export default {
       const cep = this.box.recipient_zipcode.replace(/\D/g, "");
       if (cep.length === 8) {
         getCep(cep).then(response => {
-          this.street = response.data.logradouro;
-          this.neighborhood = response.data.bairro;
-          this.city = response.data.localidade;
-          this.state = response.data.uf;
+          this.box.recipient_street = response.data.logradouro;
+          this.box.recipient_neighborhood = response.data.bairro;
+          this.box.recipient_city = response.data.localidade;
+          this.box.recipient_state = response.data.uf;
         });
       }
     }
