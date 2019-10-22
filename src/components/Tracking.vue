@@ -210,6 +210,7 @@ export default {
     overflow-y: auto;
     max-width: 600px;
     max-height: 350px;
+    display: table-cell;
     img {
       width: 600px;
     }

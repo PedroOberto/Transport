@@ -170,7 +170,7 @@ export default {
   background: url("../../../src/assets/bg-box.png") no-repeat bottom right
     #ffffffa1;
   background-size: 60%;
-  position: relative;
+  position: unset;
   padding: 20px;
   margin: 20px 0;
   border-radius: 4px;

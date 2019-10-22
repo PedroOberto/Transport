@@ -46,7 +46,7 @@ h1 {
   }
 }
 .airplane {
-  width: 100px;
+  width: 120px;
   margin: 0 auto;
   position: absolute;
   top: 130px;
@@ -65,8 +65,8 @@ h1 {
 }
 .city {
   background: url("../../src/assets/city.png") repeat-x bottom;
-  min-height: 150px;
-  background-size: 300px;
+  min-height: 200px;
+  background-size: 420px;
   animation: city 20s linear infinite;
   position: absolute;
   left: 0;

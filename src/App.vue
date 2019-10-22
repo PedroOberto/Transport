@@ -73,6 +73,7 @@ body {
   background-attachment: fixed;
   @include type-1(18);
   font-size: 18px;
+  overflow-x: hidden;
 }
 h1,
 h2,
@@ -243,9 +244,8 @@ textarea:focus {
 .button-view {
   color: #6d4826;
   border: 1px solid #6d4826;
-  position: absolute;
-  right: 5px;
-  top: 5px;
+  position: relative;
+  float: right;
 }
 .modal_error::before {
   content: "";
